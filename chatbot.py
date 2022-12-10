@@ -14,8 +14,8 @@ class TelegramBot:
 				for mensagem in mensagens:
 					update_id = mensagem['update_id']
 					chat_id = mensagem['message']['from']['id']
-					eh_primeira_mensagem = mensagem['message']['message_id'] == 1
-					resposta = self.criar_resposta(mensagem,eh_primeira_mensagem)
+					primeira_mensagem = mensagem['message']['message_id'] == 1
+					resposta = self.criar_resposta(mensagem,primeira_mensagem)
 					self.responder(resposta,chat_id)
 	def obter_mensagens(self,update_id):
 		link_requisicao = f'{self.url_base}getUpdates?timeout=100'
@@ -23,9 +23,9 @@ class TelegramBot:
 			link_requisicao = f'{link_requisicao}&offset={update_id + 1}'
 		resultado = requests.get(link_requisicao)
 		return json.loads(resultado.content)
-	def criar_resposta(self,mensagem,eh_primeira_mensagem):
+	def criar_resposta(self,mensagem,primeira_mensagem):
 		mensagem = mensagem['message']['text']
-		if eh_primeira_mensagem == True or mensagem.lower() == 'menu':
+		if primeira_mensagem == True or mensagem.lower() == 'menu':
 			return f'''Digite o número do "lanche" que gostaria de pedir.{os.linesep}1 - MISTO QUENTE{os.linesep}2 - X BURGUER{os.linesep}3 - X SALADA{os.linesep}4 - X SALADA DUPLO{os.linesep}5 - X EGG{os.linesep}6 - X BACON{os.linesep}7 - X TUDO{os.linesep}8 - X BACON EGG'''
 		if mensagem == '1':
 			return f'''MISTO QUENTE: presunto e queijo.{os.linesep}{os.linesep}Valor - R$6,00{os.linesep}Confirmar pedido(s / n)'''
@@ -53,3 +53,6 @@ class TelegramBot:
 
 bot = TelegramBot()	
 bot.Iniciar()
+
+
+
