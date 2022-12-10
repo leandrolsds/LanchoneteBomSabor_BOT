@@ -3,7 +3,7 @@ import json
 import os
 class TelegramBot:
 	def __init__(self):
-		token = '5838572417:AAE96O-oq4zivqP4_qJSP3ekH3oiauykJLo'
+		token = '5838572417:AAFJvB305bg3XWg_mXgzK4MzWAY49TYPg0Y'
 		self.url_base = f'https://api.telegram.org/bot{token}/'
 	def Iniciar(self):
 		update_id = None
